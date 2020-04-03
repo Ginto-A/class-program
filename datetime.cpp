@@ -30,17 +30,17 @@ private:
 
 int main() {
     //Datetime* dt = new Datetime;//在堆区开辟空间，FIFO
-    Datetime dt;//在栈区开辟，函数执行完会自动消亡，FILO
+    //Datetime dt;//在栈区开辟，函数执行完会自动消亡，FILO
     Datetime dt1(2020, 3, 27, 10, 46, 30);
-    Datetime dt2(dt1);
-    Datetime& dt3 = dt;//引用，dt3是dt的别名
-    Datetime* dt4 = &dt;//指针，dt4是指向dt的地址的指针
+    //Datetime dt2(dt1);
+    //Datetime& dt3 = dt;//引用，dt3是dt的别名
+    Datetime* dt4 = &dt1;//指针，dt4是指向dt的地址的指针
 
     //dt.setTime();
-    dt.showTime();
+    //dt.showTime();
     dt1.showTime();
-    dt2.showTime();
-    dt3.showTime();//引用的调用方法
+    //dt2.showTime();
+    //dt3.showTime();//引用的调用方法
     dt4->showTime();//指针的调用用法
     //dt1.showMoon();
 
@@ -53,19 +53,20 @@ Datetime::Datetime()
     year = 0; month = 0; day = 0;
     hour = 0; minute = 0; second = 0;
     LunarLeap = false;
-    cout << "构造" << this << endl;
+    cout << "普通构造" << this << endl;
 }
 Datetime::Datetime(int year, int month, int day, int hour, int minute, int second) {
     this->year = year; this->month = month; this->day = day;
     this->hour = hour; this->minute = minute; this->second = second;
     LunarLeap = false;//参数与成员变量同名时，可以用this指针解决
-    cout << "构造" << this << endl;
+    cout << "含参构造" << this << endl;
 }
 Datetime::Datetime(const Datetime& dt) {
-    year = dt.year; month = dt.month; day = dt.day;
+    /*year = dt.year; month = dt.month; day = dt.day;
     hour = dt.hour; minute = dt.minute; second = dt.second;
-    LunarLeap = false;
-    cout << "构造" << this << endl;
+    LunarLeap = false;*/
+    cout << "拷贝构造" << this << endl;
+    *this = dt;
 }
 
 Datetime::~Datetime()
