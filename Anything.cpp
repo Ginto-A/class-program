@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>//ä¹±æä¸€é€š
 class Anything
 {
 public:
@@ -11,29 +11,29 @@ public:
 	static void show() {
 		std::cout << "How many Object:" << count << std::endl;
 	}
-	static Anything* create() {		//¹¤³§·½·¨Éè¼ÆÄ£Ê½
+	static Anything* create() {		//å·¥å‚æ–¹æ³•è®¾è®¡æ¨¡å¼
 		return new Anything();
 	}
-	static Anything* createGroup(int n) {		//¹¤³§·½·¨Éè¼ÆÄ£Ê½
+	static Anything* createGroup(int n) {		//å·¥å‚æ–¹æ³•è®¾è®¡æ¨¡å¼
 		return new Anything[n];
 	}
 private:
-	static int count;//¶ÔÏó¼ÆÊıÆ÷
-	const int things;//const²»¿ÉĞŞ¸Ä 
-	Anything() : things(0) {	//Ë½ÓĞ»¯¹¹Ôìº¯Êı 
+	static int count;//å¯¹è±¡è®¡æ•°å™¨
+	const int things;//constä¸å¯ä¿®æ”¹ 
+	Anything() : things(0) {	//ç§æœ‰åŒ–æ„é€ å‡½æ•° 
 		count += 1;
 	}
 };
-int Anything::count = 0;//countÓĞstaticĞŞÊÎ£¬ÊôÓÚÀà£¬²»ÊôÓÚ¶ÔÏó£¬¹²Ïí±äÁ¿
+int Anything::count = 0;//countæœ‰staticä¿®é¥°ï¼Œå±äºç±»ï¼Œä¸å±äºå¯¹è±¡ï¼Œå…±äº«å˜é‡
 
 int main() {
-	//¹¹Ôìº¯ÊıÎ´Ë½ÓĞ»¯Ê± 
+	//æ„é€ å‡½æ•°æœªç§æœ‰åŒ–æ—¶ 
 	//Anything a, b, c;
-	//c.show();//Êä³ö½á¹ûÊÇ3£¬ÒòÎª´´½¨ÁË3¸ö¶ÔÏó£¬Ã¿´Î¹¹Ôìcount+1
+	//c.show();//è¾“å‡ºç»“æœæ˜¯3ï¼Œå› ä¸ºåˆ›å»ºäº†3ä¸ªå¯¹è±¡ï¼Œæ¯æ¬¡æ„é€ count+1
 	//Anything* p = new Anything;
-	//c.show();//Êä³ö½á¹ûÊÇ4£¬ÒòÎªnewÁËÒ»¸öĞÂ¶ÔÏó
+	//c.show();//è¾“å‡ºç»“æœæ˜¯4ï¼Œå› ä¸ºnewäº†ä¸€ä¸ªæ–°å¯¹è±¡
 	//delete p;
-	//c.show();//Êä³ö½á¹ûÊÇ3£¬p±»delete£¬Îö¹¹count-1
+	//c.show();//è¾“å‡ºç»“æœæ˜¯3ï¼Œpè¢«deleteï¼Œææ„count-1
 	
 	Anything *p = Anything::create();
 	p->show();//1
