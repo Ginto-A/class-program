@@ -1,4 +1,4 @@
-#include <iostream>//测试
+#include <iostream>//????
 class Anything
 {
 public:
@@ -11,29 +11,29 @@ public:
 	static void show() {
 		std::cout << "How many Object:" << count << std::endl;
 	}
-	static Anything* create() {		//宸ュ巶鏂规硶璁捐妯″紡
+	static Anything* create() {		//工厂方法设计模式
 		return new Anything();
 	}
-	static Anything* createGroup(int n) {		//宸ュ巶鏂规硶璁捐妯″紡
+	static Anything* createGroup(int n) {		//工厂方法设计模式
 		return new Anything[n];
 	}
 private:
-	static int count;//瀵硅薄璁℃暟鍣
-	const int things;//const涓嶅彲淇敼 
-	Anything() : things(0) {	//绉佹湁鍖栨瀯閫犲嚱鏁
+	static int count;//对象计数器
+	const int things;//const不可修改 
+	Anything() : things(0) {	//私有化构造函数
 		count += 1;
 	}
 };
-int Anything::count = 0;//count鏈塻tatic淇グ锛屽睘浜庣被锛屼笉灞炰簬瀵硅薄锛屽叡浜彉閲
+int Anything::count = 0;//count有static修饰，属于类，不属于对象，共享变量
 
 int main() {
-	//鏋勯�犲嚱鏁版湭绉佹湁鍖栨椂 
+	//构造函数未私有化时 
 	//Anything a, b, c;
-	//c.show();//杈撳嚭缁撴灉鏄锛屽洜涓哄垱寤轰簡3涓璞★紝姣忔鏋勯�燾ount+1
+	//c.show();//输出结果3，因为创建了3个对象，每次构造count+1
 	//Anything* p = new Anything;
-	//c.show();//杈撳嚭缁撴灉鏄锛屽洜涓簄ew浜嗕竴涓柊瀵硅薄
+	//c.show();//输出结果4，因为new了一个新对象
 	//delete p;
-	//c.show();//杈撳嚭缁撴灉鏄锛宲琚玠elete锛屾瀽鏋刢ount-1
+	//c.show();//输出结果3，p被delete，析构count-1
 	
 	Anything *p = Anything::create();
 	p->show();//1
