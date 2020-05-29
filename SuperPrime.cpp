@@ -21,8 +21,9 @@ class Prime {
 	}
 	~Prime() {
 	}
-  	bool isPrime() { 
-  	  //2到number-1的因子 
+  	virtual bool isPrime() { 
+  	  std::cout << "Prime's isPrime" << std::endl;
+	//2到number-1的因子 
   	  int i;
 		for(i = 2; i < number; i++){
 			if(number % i == 0) break;
@@ -32,48 +33,84 @@ class Prime {
 	}
   private:
   	const int number;
+};
+class PrimeSet {
+  public:
+  	PrimeSet(int size) {
+  	  //集合的构造什么？ 
+  	  set = new Prime*[size];
+  	  this->size = size;
+  	  index = 0;
+	}
+	~PrimeSet() { 
+	  delete[] set;
+	}
+ 	int count() {
+  	  int count = 0;
+  	  for (int i = 0; i < index; i++)
+  	    if(set[i]->isPrime())
+  	      count += 1;
+	  return count; 
+	}
+	bool add(Prime *p) {
+	  if(index == size)  return false;
+	  set[index] = p;
+	  index += 1;
+	  return true;
+	}
+	bool isAllPrime() {
+	  for(int i = 0; i < index; i++)
+	    if (!set[i]->isPrime())
+	      return false;
+	  return true;
+	} 
+  private:
+  	Prime **set;
+	int size, index;
 }; 
 class SuperPrime : public Prime {
   public:
-  	SuperPrime():Prime(0){  //为什么必须有？ 
+  	SuperPrime():Prime(0), pset(3) {  //为什么必须有？ 
   	}
-  	SuperPrime(int n):Prime(n){
+  	SuperPrime(int n):Prime(n)/*使用了基类中的构造函数*/, pset(3) {
 	  // number split into N
 	  int temp = n;
-	  int SUm = 0;
-	  int MUlti = 1;
-	  int SQuareSum = 0;
+	  int sum = 0;
+	  int multi = 1;
+	  int squareSum = 0;
 	  while(temp > 0) {
+	  	int n = temp % 10;
 	  	int t = temp % 10;
 	  	temp /= 10;
-	  	SUm += t;
-		MUlti *= t;
-		SQuareSum += (t * t);	
+	  	sum += n;
+		multi *= n;
+		squareSum += n*n; 
 	  } 
-	  sum = new Prime(SUm);
-	  multi = new Prime(MUlti);
-	  squareSum = new Prime(SQuareSum); 
+	  Prime Sum(sum);
+	  Prime Multi(multi);
+	  Prime SquareSum(squareSum);
+	  pset.add(&Sum);
+	  pset.add(&Multi);
+	  pset.add(&SquareSum);
 	}
   	~SuperPrime() {
-  		delete sum;
-  		delete multi;
-  		delete squareSum;
 	}
-  	bool isPrime() {   //类/对象的接口，更抽象说是外观 
-	  if (Prime::isPrime() && sum->isPrime() && multi->isPrime() && squareSum->isPrime())
+  	virtual bool isPrime() {
+	  std::cout << "SuperPrime's isPrime" << std::endl;
+	  if (Prime::isPrime() /*使用了基类中的isPrime()*/&& pset.isAllPrime())
 	    return true; 
   	  return false;
 	}
   private:
-	Prime *sum; 
-	Prime *multi;
-	Prime *squareSum;
+  	PrimeSet pset;
 };
 int main() {
-  SuperPrime sp(113);
-  if (sp.isPrime())
-    std::cout << "113 is SuperPrime" << std::endl;
-  else
-    std::cout << "113 is NOT SuperPrime" << std::endl;
+	Prime p(13);
+	SuperPrime sp(113);
+	PrimeSet set(2);
+	set.add(&sp);//sp向父类转化了 
+	set.add(&p);
+    std::cout << "How many :" << set.count() << std::endl;
+    
   return 0;
 }
