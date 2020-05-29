@@ -1,9 +1,12 @@
 #include<iostream>
 
-#define Max(x, y) (x > y ? x : y)
+template<class T>
+T Max(T x, T y){
+	return x > y ? x : y;
+}
 
 int main() {
-	std::cout << Max(9 + 0.9, 8 + 0.8) << std::endl;
+	std::cout << Max(9.9, 8.8) << std::endl;
 	std::cout << Max(9, 8) << std::endl;
 	return 0;
 }
