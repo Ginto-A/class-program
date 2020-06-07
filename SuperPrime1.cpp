@@ -24,12 +24,13 @@ public:
 private:
 	const int num;
 };
+template <class T>
 class Set{
 public:
 	Set(int sz);
 	~Set();
-	bool add(BigPrime *bp);
-	bool remove(BigPrime *bp);
+	bool add(T *bp);
+	bool remove(T *bp);
 	int count() const {
 		int ret = 0;
 		for(int i = 0; i < index; i++){
@@ -41,32 +42,37 @@ public:
 		return 0;
 	}
 private:
-	BigPrime **pset;
+	T **pset;
 	int size, index;	
 };
 
 int main() {
-	Set set(1000);
-	BigSuperPrime bp(2);
+	Set<BigPrime> set(1000);
+	BigSuperPrime bp(2), bp1(3);
 	set.add(&bp);
+	set.add(&bp1);
 	std::cout << set.count() << std::endl;
 	return 0;
 }
 
-Set::Set(int sz) : size(sz) {
+template <class T>
+Set<T>::Set(int sz) : size(sz) {
 	index = 0;
-	pset = new BigPrime*[size];//∑÷≈‰¥Ê¥¢ø’º‰ 
+	pset = new T*[size];//∑÷≈‰¥Ê¥¢ø’º‰ 
 }
-Set::~Set() {
+template <class T>
+Set<T>::~Set() {
 	delete[] pset;//ªÿ ’¥Ê¥¢ø’º‰ 
 }
-bool Set::add(BigPrime *bp) {
+template <class T>
+bool Set<T>::add(T *bp) {
 	if(index > size) return false;
 	pset[index] = bp;
 	index++;//pset[index++] = bp;
 	return true;
 }
-bool Set::remove(BigPrime *bp){
+template <class T>
+bool Set<T>::remove(T *bp){
 	if(index < 0) return false;
 	delete bp;
 	index--;
